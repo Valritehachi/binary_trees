@@ -7,23 +7,13 @@
  * @size: size
  * Return: 0
  */
-
 heap_t *array_to_heap(int *array, size_t size)
 {
-	if (array == NULL || size == 0)
-	{
-		return (NULL);
-	}
+	unsigned int i;
+	heap_t *root = NULL;
 
-	heap_t *root = binary_tree_node(NULL, array[0]);
-	if (root == NULL)
-	{
-		return (NULL);
-	}
-	for (size_t i = 1; i < size; i++)
-	{
+	for (i = 0; i < size; i++)
 		heap_insert(&root, array[i]);
-	}
 
 	return (root);
 }
