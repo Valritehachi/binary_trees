@@ -7,48 +7,28 @@
  * @second: ..
  * Return: 0
  */
-binary_tree_t *binary_trees_ancestor(const binary_tree_t *first, const binary_tree_t *second)
+
+binary_tree_t *binary_trees_ancestor(const binary_tree_t *first,
+		const binary_tree_t *second)
 {
-	const binary_tree_t *ancestor;
+	binary_tree_t *mom, *pop;
 
-	if (first == NULL || second == NULL)
+	if (!first || !second)
 	{
-		return NULL;
+		return (NULL);
 	}
-
-	ancestor = find_common_ancestor(first, second);
-	return (binary_tree_t *)ancestor;
-}
-
-/**
- * find_common_ancestor - ..
- * @node: ..
- * @first: ..
- * @second: ..
- * Return: ...
- */
-const binary_tree_t *find_common_ancestor(const binary_tree_t *node, const binary_tree_t *first, const binary_tree_t *second)
-{
-	const binary_tree_t *left, *right;
-
-	if (node == NULL || first == NULL || second == NULL)
+	if (first == second)
 	{
-		return NULL;
+		return ((binary_tree_t *)first);
 	}
-
-	if (node == first || node == second)
+	mom = first->parent, pop = second->parent;
+	if (first == pop || !mom || (!mom->parent && pop))
 	{
-		return node;
+		return (binary_trees_ancestor(first, pop));
 	}
-
-	left = find_common_ancestor(node->left, first, second);
-
-	right = find_common_ancestor(node->right, first, second);
-
-	if (left && right)
+	else if (mom == second || !pop || (!pop->parent && mom))
 	{
-		return node;
+		return (binary_trees_ancestor(mom, second));
 	}
-
-	return (left != NULL) ? left : right;
+	return (binary_trees_ancestor(mom, pop));
 }
