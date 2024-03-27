@@ -46,14 +46,10 @@ int binary_tree_is_heap(const binary_tree_t *tree)
 	int tmp;
 
 	if (!tree)
-	{
 		return (0);
-	}
 
 	tmp = binary_tree_is_complete(tree);
 	if (!tmp)
-	{
 		return (0);
-	}
 	return (check_max(tree));
 }
